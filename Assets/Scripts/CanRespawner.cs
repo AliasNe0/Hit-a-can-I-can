@@ -23,11 +23,6 @@ public class CanRespawner : MonoBehaviour
         {
             StartCoroutine(RespawnCan());
         }
-        if (collision.transform.CompareTag("CanEnvironment"))
-        {
-            rb.useGravity = true;
-            rb.isKinematic = false;
-        }
     }
 
     IEnumerator RespawnCan()
@@ -37,5 +32,7 @@ public class CanRespawner : MonoBehaviour
         yield return new WaitForSeconds(respawnTimer);
         transform.position = awakePosition;
         transform.rotation = awakeRotation;
+        rb.useGravity = true;
+        rb.isKinematic = false;
     }
 }
