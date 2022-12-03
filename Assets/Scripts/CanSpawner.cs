@@ -12,11 +12,13 @@ public class CanSpawner : MonoBehaviour
 
     private void Start()
     {
+        // instantiate all cans at the start
         Instantiate(canPrefab, transform.position, Quaternion.identity, transform);
     }
 
     private void Update()
     {
+        // infinite spawning in test mode
         if (GameSettings.Instance.testMode && onGround)
         {
             onGround = false;

@@ -34,8 +34,10 @@ public class BallSpawner : MonoBehaviour
             int ballLimit = gameSettings.ballLimit;
             if (gameSettings.testMode || ballCount < ballLimit)
             {
+                // stop spawning if the ball has not landed yet
                 onGround = false;
                 Instantiate(ballPrefab, transform.position, Quaternion.identity, transform);
+                // create a stopper object to fix the ball on the screen
                 Instantiate(ballStopper);
                 ballCount++;
             }
