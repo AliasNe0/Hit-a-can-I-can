@@ -17,7 +17,7 @@ public class BallStopper : MonoBehaviour
         }
     }
 
-    // delay is need to fully stop the ball
+    // delay is needed to fully stop the ball
     IEnumerator DestroyStopper()
     {
         yield return new WaitForSeconds(colliderDelay);
