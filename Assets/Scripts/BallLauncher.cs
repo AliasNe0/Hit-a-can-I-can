@@ -12,11 +12,11 @@ public class BallLauncher : MonoBehaviour
         {
             gameSettings = GameSettings.Instance;
             // only the first touch is used
-            // consequent simultanious touches are ignored
+            // consequent simultaneous touches are ignored
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
-                // on start phase find a ball closest to the touch position (can be used if multiple balls are spawned at a time)
+                // on start phase find a ball closest to the touch position (can be used if multiple balls need to be spawned at a time)
                 currentBall = FindNearestBallToTouchPosition(touch);
             }
             if (touch.phase == TouchPhase.Ended)

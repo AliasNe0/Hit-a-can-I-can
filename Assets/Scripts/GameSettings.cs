@@ -6,7 +6,7 @@ public class GameSettings : MonoBehaviour
 {
     [Header("General")]
     [Tooltip("Maximum number of balls for this level")]
-    public int ballLimit = 3;
+    public int ballLimit = 5;
     [Tooltip("Ball selection distance measured from the center of the ball (First touch)")]
     public float touchDistanceLimit = 150f;
     public float ballSpeedFactor = 600f;
