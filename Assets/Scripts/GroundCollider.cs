@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GroundCollider : MonoBehaviour
 {
-    // on collision, send a signal that balls and cans are grounded
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Ball"))
@@ -16,6 +16,7 @@ public class GroundCollider : MonoBehaviour
         if (collision.transform.CompareTag("Can"))
         {
             // eliminate multiple updates of the bool by removing the triggering tag
+            Debug.Log("Can collision");
             collision.gameObject.tag = "Untagged";
             collision.transform.parent.GetComponent<CanSpawner>().onGround = true;
         }
