@@ -57,8 +57,12 @@ public class BallLauncher : MonoBehaviour
         float deltaX = touch.position.x - ballScreenPosition.x;
         float deltaY = touch.position.y - ballScreenPosition.y;
         deltaY = deltaY < 0f ? 0f : deltaY;
+        // limit final touch position to avoid extreme launching angles
         deltaY = deltaY > gameSettings.moveDistanceLimit ? gameSettings.moveDistanceLimit : deltaY;
+        // the smaller deltaY is, the greater it decreases x- and y-angles
+        // is done to avoid extreme angles at low deltaY
         float launchFactor = deltaY / gameSettings.moveDistanceLimit;
+        // y-component is doubled to increase max angle up to 60 degrees
         Vector3 ballLaunchVector = Vector3.Normalize(new Vector3(deltaX * launchFactor, 2f * deltaY * launchFactor, deltaY));
         return ballLaunchVector;
     }
