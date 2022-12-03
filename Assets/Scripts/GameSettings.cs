@@ -9,9 +9,8 @@ public class GameSettings : MonoBehaviour
     public int ballLimit = 3;
     [Tooltip("Ball selection distance measured from the center of the ball (First touch)")]
     public float touchDistanceLimit = 150f;
-    [Tooltip("y-distance measured from the center of the ball (Final touch)")]
-    public float moveDistanceLimit = 1500f;
-    public float ballSpeedFactor = 4000f;
+    public float ballSpeedFactor = 600f;
+    public float ballMinSpeedFactor = 0.5f;
     [Header("Test mode")]
     [Tooltip("Infinite balls and cans")]
     public bool testMode = false;

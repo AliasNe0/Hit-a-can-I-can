@@ -12,7 +12,7 @@ public class BallStopper : MonoBehaviour
         if (collision.transform.CompareTag("SpawningBall"))
         {
             // change the tag to activate user interaction
-            collision.gameObject.tag = "Ball";
+            collision.gameObject.tag = "CurrentBall";
             StartCoroutine(DestroyStopper());
         }
     }
