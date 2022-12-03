@@ -2,17 +2,15 @@ using UnityEngine;
 
 public class BallLauncher : MonoBehaviour
 {
-    [SerializeField] private GameObject ballParent;
-    [SerializeField] private float touchDistanceLimit = 150f;
-    [SerializeField] private float moveDistanceLimit = 1500f;
-    [SerializeField] private float ballSpeedFactor = 4000f;
-
+    private GameSettings gameSettings;
     private GameObject currentBall;
 
     private void Update()
     {
         if (Input.touchCount > 0)
         {
+            gameSettings = GameSettings.Instance;
+
             for (int i = 0; i < Input.touchCount; i++)
             {
                 Touch touch = Input.GetTouch(i);
@@ -24,7 +22,7 @@ public class BallLauncher : MonoBehaviour
                 {
                     if (currentBall == null) return;
                     Vector3 ballLaunchVector = FindBallLaunchVector(touch);
-                    currentBall.GetComponent<Rigidbody>().AddForce(ballSpeedFactor * ballLaunchVector);
+                    currentBall.GetComponent<Rigidbody>().AddForce(gameSettings.ballSpeedFactor * ballLaunchVector);
                 }
             }
         }
@@ -33,14 +31,15 @@ public class BallLauncher : MonoBehaviour
     private GameObject FindNearestBallToTouchPosition(Touch touch)
     {
         GameObject nearest = null;
-        float distance = touchDistanceLimit;
+        float distance = gameSettings.touchDistanceLimit;
 
+        GameObject ballParent = BallSpawner.Instance.gameObject;
         for (int i = 0; i < ballParent.transform.childCount; i++)
         {
             Transform ball = ballParent.transform.GetChild(i);
             Vector3 ballScreenPosition = Camera.main.WorldToScreenPoint(new Vector3(ball.position.x, -2f * Camera.main.transform.position.y + ball.position.y, 0f));
             float candidateDistance = Vector3.Distance(ballScreenPosition, touch.position);
-            if (candidateDistance < distance)
+            if (ball.tag == "Ball" && candidateDistance < distance)
             {
                 nearest = ball.gameObject;
                 distance = candidateDistance;
@@ -55,8 +54,8 @@ public class BallLauncher : MonoBehaviour
         float deltaX = touch.position.x - ballScreenPosition.x;
         float deltaY = touch.position.y - ballScreenPosition.y;
         deltaY = deltaY < 0f ? 0f : deltaY;
-        deltaY = deltaY > moveDistanceLimit ? moveDistanceLimit : deltaY;
-        float launchFactor = deltaY / moveDistanceLimit;
+        deltaY = deltaY > gameSettings.moveDistanceLimit ? gameSettings.moveDistanceLimit : deltaY;
+        float launchFactor = deltaY / gameSettings.moveDistanceLimit;
         Vector3 ballLaunchVector = Vector3.Normalize(new Vector3(deltaX * launchFactor, 2f * deltaY * launchFactor, deltaY));
         return ballLaunchVector;
     }
