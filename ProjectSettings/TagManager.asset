@@ -5,8 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+<<<<<<< HEAD
   - Can
   - SpawningBall
+=======
+  - DestroyCollider
+  - CanEnvironment
+>>>>>>> parent of f901bb5 (Code commented)
   layers:
   - Default
   - TransparentFX
