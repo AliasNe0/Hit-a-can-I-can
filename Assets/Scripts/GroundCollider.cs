@@ -9,14 +9,13 @@ public class GroundCollider : MonoBehaviour
     {
         if (collision.transform.CompareTag("Ball"))
         {
-            // eliminate multiple updates of the bool by removing the triggering tag
+            // eliminate multiple updates of the bool by removing the tag trigger
             collision.gameObject.tag = "Untagged";
             BallSpawner.Instance.onGround = true;
         }
         if (collision.transform.CompareTag("Can"))
         {
-            // eliminate multiple updates of the bool by removing the triggering tag
-            Debug.Log("Can collision");
+            // eliminate multiple updates of the bool by removing the tag trigger
             collision.gameObject.tag = "Untagged";
             collision.transform.parent.GetComponent<CanSpawner>().onGround = true;
         }
