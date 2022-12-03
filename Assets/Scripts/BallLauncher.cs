@@ -42,9 +42,9 @@ public class BallLauncher : MonoBehaviour
             // "-2f * Camera.main.transform.position.y" is required to get a correct screen position
             Vector3 ballScreenPosition = Camera.main.WorldToScreenPoint(new Vector3(ball.position.x, -2f * Camera.main.transform.position.y + ball.position.y, 0f));
             float candidateDistance = Vector3.Distance(ballScreenPosition, touch.position);
-            // the ball is only available for user interaction when it has the tag "Ball"
-            // thus, the closest ball from a set of activated balls only is returned
-            if (ball.CompareTag("Ball") && candidateDistance < distance)
+            // the ball is only activated for user interaction when it has the tag "Ball"
+            // thus, the closest of only activated balls is returned
+            if (ball.tag == "Ball" && candidateDistance < distance)
             {
                 nearest = ball.gameObject;
                 distance = candidateDistance;
@@ -61,14 +61,13 @@ public class BallLauncher : MonoBehaviour
         float deltaY = touch.position.y - ballScreenPosition.y;
         // negative deltaY is ignored when final touch position on the screen is lower that the ball position on the screen
         deltaY = deltaY < 0f ? 0f : deltaY;
-        // limit final touch position to decrese touch movement required to reach the largest launching angle
+        // limit final touch position to avoid extreme launching angles
         deltaY = deltaY > gameSettings.moveDistanceLimit ? gameSettings.moveDistanceLimit : deltaY;
-        // the smaller deltaY is the greater it decreases x- and y-angles
-        // it is done to avoid extreme x- and y-angles at low deltaY
+        // the smaller deltaY is, the greater it decreases x- and y-angles
+        // is done to avoid extreme angles at low deltaY
         float launchFactor = deltaY / gameSettings.moveDistanceLimit;
-        // y-component is doubled to increase max yz-angle up to 60 degrees
-        Vector3 ballLaunchVector = new Vector3(deltaX * launchFactor, 2f * deltaY * launchFactor, deltaY);
-        // only the direction is returned, not the magnitude
-        return Vector3.Normalize(ballLaunchVector);
+        // y-component is doubled to increase max angle up to 60 degrees
+        Vector3 ballLaunchVector = Vector3.Normalize(new Vector3(deltaX * launchFactor, 2f * deltaY * launchFactor, deltaY));
+        return ballLaunchVector;
     }
 }
