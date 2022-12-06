@@ -8,6 +8,7 @@ using UnityEngine;
 public class CanSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject canPrefab;
+
     public bool onGround = false;
 
     private void Start()

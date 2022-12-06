@@ -4,6 +4,7 @@ public class BallLauncher : MonoBehaviour
 {
     private GameSettings gameSettings;
     private GameObject currentBall;
+
     private float ballSpeedMultiplicator;
 
     private void Update()
@@ -21,6 +22,7 @@ public class BallLauncher : MonoBehaviour
             }
             if (touch.phase == TouchPhase.Ended)
             {
+                Debug.Log("Touch ended");
                 // no effect if a ball is not spawned yet
                 if (currentBall == null) return;
                 // calculate the launching direction
@@ -29,6 +31,7 @@ public class BallLauncher : MonoBehaviour
                 currentBall.GetComponent<Rigidbody>().AddForce(gameSettings.ballSpeedFactor * ballSpeedMultiplicator * ballLaunchVector);
                 // change tag to disable player input midair
                 currentBall.tag = "Ball";
+                Debug.Log("Ball found");
             }
         }
     }
@@ -64,7 +67,8 @@ public class BallLauncher : MonoBehaviour
         // max y-movement limited to the middle of the screen
         float maxDeltaY = Screen.height / 2f - ballScreenPosition.y;
         // negative deltaY is ignored when final touch position on the screen is lower that the ball position on the screen
-        float deltaY = Mathf.Clamp(touch.position.y - ballScreenPosition.y, 0f, maxDeltaY);
+        // at least some force along y-axis should be applied in order to make the active ball collided with the ground, so the min value is 0.1f
+        float deltaY = Mathf.Clamp(touch.position.y - ballScreenPosition.y, 0.1f, maxDeltaY);
         // yFactor smoothes ball launcher
         float yFactor = deltaY / maxDeltaY;
         // yFactor decreases speed at low deltaY

@@ -8,14 +8,13 @@ public class BallSpawner : MonoBehaviour
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private GameObject ballStopper;
 
-    private GameSettings gameSettings;
-    private int ballCount = 0;
     public bool onGround = true;
+    private GameSettings gameSettings;
+    private int spawnedBallCount = 0;
 
     public static BallSpawner Instance { get; private set; }
     private void Awake()
     {
-
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -26,20 +25,23 @@ public class BallSpawner : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        gameSettings = GameSettings.Instance;
+    }
+
     private void Update()
     {
         if (onGround)
         {
-            gameSettings = GameSettings.Instance;
-            int ballLimit = gameSettings.ballLimit;
-            if (gameSettings.testMode || ballCount < ballLimit)
+            if (gameSettings.testMode || spawnedBallCount < gameSettings.ballLimit)
             {
                 // stop spawning if the ball has not landed yet
                 onGround = false;
                 Instantiate(ballPrefab, transform.position, Quaternion.identity, transform);
                 // create a stopper object to fix the ball on the screen
                 Instantiate(ballStopper);
-                ballCount++;
+                spawnedBallCount++;
             }
         }
     }

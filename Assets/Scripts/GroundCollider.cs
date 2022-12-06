@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class GroundCollider : MonoBehaviour
 {
-    BallSpawner ballParent;
-    GameSettings gameSettings;
-    LevelManager levelManager;
-
-    private int canCount = 0;
+    private BallSpawner ballSpawner;
+    private ScoreBoard scoreBoard;
 
     private void Start()
     {
-        levelManager = LevelManager.Instance;
-        ballParent = BallSpawner.Instance;
-        gameSettings = GameSettings.Instance;
+        ballSpawner = BallSpawner.Instance;
+        scoreBoard = ScoreBoard.Instance;
     }
 
     // on collision, send a signal that balls and cans are grounded
@@ -24,20 +20,16 @@ public class GroundCollider : MonoBehaviour
         {
             // eliminate multiple updates of the bool by removing the triggering tag
             collision.gameObject.tag = "Untagged";
-            ballParent.onGround = true;
-            if (!gameSettings.testMode && ballParent.gameObject.transform.childCount == gameSettings.ballLimit) levelManager.ShowLevelMenu();
+            ballSpawner.onGround = true;
+            scoreBoard.UpdateBallCount();
+
         }
         if (collision.transform.CompareTag("Can"))
         {
             // eliminate multiple updates of the bool by removing the triggering tag
             collision.gameObject.tag = "Untagged";
             collision.transform.parent.GetComponent<CanSpawner>().onGround = true;
-            canCount++;
-            if (!gameSettings.testMode && collision.transform.root.childCount == canCount)
-            {
-                levelManager.levelIsCompleted = true;
-                levelManager.ShowLevelMenu();
-            }
+            scoreBoard.UpdateCanCount();
         }
     }
 }

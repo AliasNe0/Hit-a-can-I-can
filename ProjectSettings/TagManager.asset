@@ -8,6 +8,7 @@ TagManager:
   - Can
   - SpawningBall
   - CurrentBall
+  - CanParent
   layers:
   - Default
   - TransparentFX

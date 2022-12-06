@@ -534,7 +534,7 @@ PrefabInstance:
     - target: {fileID: 6124195387926814184, guid: d8dc636a2d0b6b94e9b1fda5cb131a04,
         type: 3}
       propertyPath: m_Name
-      value: CanPosition (5)
+      value: CanSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 7708734260982565230, guid: d8dc636a2d0b6b94e9b1fda5cb131a04,
         type: 3}
@@ -735,7 +735,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 792581542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6, y: 0.5, z: -2.9}
+  m_LocalPosition: {x: -0.8, y: 0.5, z: -2.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1056,7 +1056,7 @@ PrefabInstance:
     - target: {fileID: 6124195387926814184, guid: d8dc636a2d0b6b94e9b1fda5cb131a04,
         type: 3}
       propertyPath: m_Name
-      value: CanPosition (1)
+      value: CanSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 7708734260982565230, guid: d8dc636a2d0b6b94e9b1fda5cb131a04,
         type: 3}
@@ -1240,7 +1240,7 @@ PrefabInstance:
     - target: {fileID: 6124195387926814184, guid: d8dc636a2d0b6b94e9b1fda5cb131a04,
         type: 3}
       propertyPath: m_Name
-      value: CanPosition (3)
+      value: CanSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 7708734260982565230, guid: d8dc636a2d0b6b94e9b1fda5cb131a04,
         type: 3}
@@ -1425,7 +1425,7 @@ PrefabInstance:
     - target: {fileID: 6124195387926814184, guid: d8dc636a2d0b6b94e9b1fda5cb131a04,
         type: 3}
       propertyPath: m_Name
-      value: CanPosition (4)
+      value: CanSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 7708734260982565230, guid: d8dc636a2d0b6b94e9b1fda5cb131a04,
         type: 3}
@@ -1494,7 +1494,7 @@ PrefabInstance:
     - target: {fileID: 6124195387926814184, guid: d8dc636a2d0b6b94e9b1fda5cb131a04,
         type: 3}
       propertyPath: m_Name
-      value: CanPosition (2)
+      value: CanSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 7708734260982565230, guid: d8dc636a2d0b6b94e9b1fda5cb131a04,
         type: 3}
@@ -1699,8 +1699,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1913342921}
   m_Layer: 0
-  m_Name: CanSpawner
-  m_TagString: Untagged
+  m_Name: CanParent
+  m_TagString: CanParent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1753,7 +1753,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961195784}
   m_LocalRotation: {x: -0, y: -0, z: -0.38268274, w: 0.9238798}
-  m_LocalPosition: {x: -0.70000005, y: 0.1, z: -3}
+  m_LocalPosition: {x: -0.9, y: 0.1, z: -3}
   m_LocalScale: {x: 1, y: 0.25, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1834,6 +1834,7 @@ GameObject:
   - component: {fileID: 1984539307}
   - component: {fileID: 1984539306}
   - component: {fileID: 1984539305}
+  - component: {fileID: 1984539308}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1886,6 +1887,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1984539308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984539304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2283dd6f05628824789197073cffcdf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballCount: 0
+  ballLimit: 0
+  canCount: 0
+  canLimit: 0
 --- !u!1001 &413192815350371381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1896,7 +1913,7 @@ PrefabInstance:
     - target: {fileID: 6124195387926814184, guid: d8dc636a2d0b6b94e9b1fda5cb131a04,
         type: 3}
       propertyPath: m_Name
-      value: CanPosition
+      value: CanSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 7708734260982565230, guid: d8dc636a2d0b6b94e9b1fda5cb131a04,
         type: 3}
