@@ -44,12 +44,12 @@ public class ScoreBoard : MonoBehaviour
     public void UpdateBallCount()
     {
         ballCount--;
-        levelManager.UpdateBallCountTxt(ballCount, ballLimit, gameSettings.testMode);
+        levelManager.UpdateBallCount(ballCount, ballLimit, gameSettings.testMode);
     }
 
     public void UpdateCanCount()
     {
         canCount--;
-        levelManager.UpdateCanCountTxt(canCount, canLimit, gameSettings.testMode);
+        levelManager.UpdateCanCount(canCount, canLimit, gameSettings.testMode);
     }
 }

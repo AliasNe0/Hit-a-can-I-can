@@ -1,7 +1,14 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BallLauncher : MonoBehaviour
 {
+    [Header("Camera punch")]
+    [SerializeField] float punchFOV = 62f;
+    [SerializeField] float punchLength = 0.5f;
+    [SerializeField] float shakeStrength = 0.1f;
     private GameSettings gameSettings;
     private GameObject currentBall;
 
@@ -22,7 +29,6 @@ public class BallLauncher : MonoBehaviour
             }
             if (touch.phase == TouchPhase.Ended)
             {
-                Debug.Log("Touch ended");
                 // no effect if a ball is not spawned yet
                 if (currentBall == null) return;
                 // calculate the launching direction
@@ -31,9 +37,18 @@ public class BallLauncher : MonoBehaviour
                 currentBall.GetComponent<Rigidbody>().AddForce(gameSettings.ballSpeedFactor * ballSpeedMultiplicator * ballLaunchVector);
                 // change tag to disable player input midair
                 currentBall.tag = "Ball";
-                Debug.Log("Ball found");
+                PunchCamera(ballLaunchVector);
             }
         }
+    }
+
+    private void PunchCamera(Vector3 ballLaunchVector)
+    {
+        Camera camera = Camera.main;
+        float cameraFOV = camera.fieldOfView;
+        camera.DOFieldOfView(punchFOV, punchLength / 2f).OnComplete(() => Camera.main.DOFieldOfView(cameraFOV, punchLength / 2f));
+        Vector3 cameraShakeVector = new Vector3(ballLaunchVector.x, ballLaunchVector.y, 0f);
+        camera.DOShakePosition(punchLength, shakeStrength * cameraShakeVector, 1, 1f, true, ShakeRandomnessMode.Harmonic);
     }
 
     private GameObject FindNearestBallToTouchPosition(Touch touch)
