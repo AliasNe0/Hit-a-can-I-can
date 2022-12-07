@@ -100,6 +100,7 @@ public class LevelManager : MonoBehaviour
             Time.timeScale = 1f;
         }
         levelMenu.SetActive(levelMenuIsActive);
+        levelUI.SetActive(!levelMenuIsActive);
     }
 
     public void LoadNextLevel()
@@ -135,7 +136,7 @@ public class LevelManager : MonoBehaviour
     {
         PunchText(canCountTxt.gameObject.transform);
         canCountTxt.text = $"{canCount}/{canLimit}";
-        if (canCount == 0 && !levelMenuIsActive && !testMode)
+        if (canCount == canLimit && !levelMenuIsActive && !testMode)
         {
             levelIsCompleted = true;
             UpdateGameEndMessage();
@@ -155,9 +156,14 @@ public class LevelManager : MonoBehaviour
 
     private void PunchText(Transform countTransform)
     {
+        Quaternion rotation = countTransform.rotation;
+        Vector3 scale = countTransform.localScale;
         countTransform.DOPunchScale(punchScale * (new Vector3(1f, 1f, 0f)), punchLength, 1, 1);
         countTransform.DOPunchRotation(punchRotation * (new Vector3(0f, 0f, -1f)), punchLength, 1, 1).OnComplete(
             () => countTransform.DOPunchRotation(punchRotation * (new Vector3(0f, 0f, 1f)), punchLength, 1, 1));
+        // resetting properties due to bugs with Dotween
+        countTransform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        countTransform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     private void UpdateGameEndMessage()

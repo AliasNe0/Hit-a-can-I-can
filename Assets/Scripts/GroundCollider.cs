@@ -16,6 +16,7 @@ public class GroundCollider : MonoBehaviour
     // on collision, send a signal that balls and cans are grounded
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Collision");
         if (collision.transform.CompareTag("Ball"))
         {
             // eliminate multiple updates of the bool by removing the triggering tag
@@ -28,7 +29,7 @@ public class GroundCollider : MonoBehaviour
         {
             // eliminate multiple updates of the bool by removing the triggering tag
             collision.gameObject.tag = "Untagged";
-            collision.transform.parent.GetComponent<CanSpawner>().onGround = true;
+            collision.transform.parent.GetComponentInParent<CanSpawner>().onGround = true;
             scoreBoard.UpdateCanCount();
         }
     }

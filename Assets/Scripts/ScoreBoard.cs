@@ -36,8 +36,8 @@ public class ScoreBoard : MonoBehaviour
         ballCount = ballLimit + 1;
         UpdateBallCount();
         canLimit = GameObject.FindGameObjectWithTag("CanParent").transform.root.childCount;
-        // +1 to compensate for canCount--
-        canCount = canLimit + 1;
+        // -1 to compensate for canCount++
+        canCount = -1;
         UpdateCanCount();
     }
 
@@ -49,7 +49,7 @@ public class ScoreBoard : MonoBehaviour
 
     public void UpdateCanCount()
     {
-        canCount--;
+        canCount++;
         levelManager.UpdateCanCount(canCount, canLimit, gameSettings.testMode);
     }
 }
