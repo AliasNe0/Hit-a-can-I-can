@@ -160,10 +160,12 @@ public class LevelManager : MonoBehaviour
         Vector3 scale = countTransform.localScale;
         countTransform.DOPunchScale(punchScale * (new Vector3(1f, 1f, 0f)), punchLength, 1, 1);
         countTransform.DOPunchRotation(punchRotation * (new Vector3(0f, 0f, -1f)), punchLength, 1, 1).OnComplete(
-            () => countTransform.DOPunchRotation(punchRotation * (new Vector3(0f, 0f, 1f)), punchLength, 1, 1));
-        // resetting properties due to bugs with Dotween
-        countTransform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        countTransform.localScale = new Vector3(1f, 1f, 1f);
+            () => countTransform.DOPunchRotation(punchRotation * (new Vector3(0f, 0f, 1f)), punchLength, 1, 1)).OnComplete(() =>
+        {
+            // resetting properties due to bugs with Dotween
+            countTransform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            countTransform.localScale = new Vector3(1f, 1f, 1f);
+        });
     }
 
     private void UpdateGameEndMessage()
